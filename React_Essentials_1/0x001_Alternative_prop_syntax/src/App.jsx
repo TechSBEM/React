@@ -1,44 +1,14 @@
-import reactImage from "./assets/react-core-concepts.png";
-import componentImage from "./assets/components.png";
+
 import {CORE_CONCEPTS} from "./data.js"
+import Header from "./component/Header.jsx";
+import CoreConcept from "./component/CoreConcept.jsx";
 
-const reactDescriptions = ["Fundamental", "Crucial", "Core"];
 
-function genRandomInt(max) {
-  return Math.floor(Math.random() * (max + 1));
-}
-
-function Header() {
-  // Declaring a variable for randomly displaying the reactDescriptions values in the array
-  const description = reactDescriptions[genRandomInt(2)];
-
-  return (
-    <header>
-      <img src={reactImage} alt="Stylized atom" />
-      <h1>React Essentials</h1>
-      {/* \The use of "{}" is for dynamic not static code */}
-      <p>
-        {description} React concepts you will need for almost any app you are
-        going to build!
-      </p>
-    </header>
-  );
-}
-
-// For Props
-function CoreConcept({image, title, description}) {
-  return (
-    <li>
-      <img src={image} alt={title} />
-      <h3>{title}</h3>
-      <p>{description}</p>
-    </li>
-  );
-}
 
 function App() {
   return (
     <div>
+      
       <Header />
       <main>
         {/* The ID for styling the concepts */}
