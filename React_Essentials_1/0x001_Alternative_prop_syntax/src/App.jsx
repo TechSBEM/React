@@ -1,8 +1,14 @@
 
 import {CORE_CONCEPTS} from "./data.js"
-import Header from "./component/Header.jsx";
+import Header from "./component/Header/Header.jsx";
 import CoreConcept from "./component/CoreConcept.jsx";
+import TabButton from "./component/TabButton.jsx";
 
+// Create a function for the button when clicked
+function handleSelect(selectedButton){
+  // SelectedButton = 'component', 'prop', 'JSX', 'State'
+  console.log(selectedButton)
+}
 
 
 function App() {
@@ -35,6 +41,19 @@ function App() {
              */}
              {/* ----------------------------------------------------------------------------------------- */}
           </ul>
+        </section>
+        <section id="examples">
+          <h2>Example</h2>
+          {/* The menu tag is used for creating a list of button */}
+          <menu>
+            <TabButton onselect={()=> handleSelect('component')}>Component</TabButton>
+            {/* "children " used here is a prop for the TabButton function */}
+            <TabButton onselect={()=> handleSelect('JSX')} >JSX</TabButton>
+            <TabButton onselect={()=> handleSelect('Props')} >Props</TabButton>
+            <TabButton onselect={()=> handleSelect('State')} >State</TabButton>
+          
+          </menu>
+          Dynamic content
         </section>
       </main>
     </div>
