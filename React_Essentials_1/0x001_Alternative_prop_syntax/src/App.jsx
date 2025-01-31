@@ -35,7 +35,8 @@ function App() {
     );
   }
   return (
-    <div>
+    // Using "Fragment(<>...</>) instead of "<div></div>" let you group elements without a wrapper"
+    <>
       <Header />
       <main>
         {/* The ID for styling the concepts */}
@@ -102,7 +103,7 @@ function App() {
           {TabContent}
         </section>
       </main>
-    </div>
+    </>
   );
 }
 
