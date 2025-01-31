@@ -1,20 +1,41 @@
-
-import {CORE_CONCEPTS} from "./data.js"
+import { CORE_CONCEPTS } from "./data.js";
 import Header from "./component/Header/Header.jsx";
 import CoreConcept from "./component/CoreConcept.jsx";
 import TabButton from "./component/TabButton.jsx";
-
-// Create a function for the button when clicked
-function handleSelect(selectedButton){
-  // SelectedButton = 'component', 'prop', 'JSX', 'State'
-  console.log(selectedButton)
-}
-
+import { useState } from "react";
+import { EXAMPLES } from "./data.js";
 
 function App() {
+  // ------------Rules for React Hooks--------------
+  // 1.Only call hooks inside of a componet function
+  // 2. Only call hooks on the top level not nested
+
+  // --------------------------------------USESTATE------------------------------
+  const [selectedValue, setSelectedValue] = useState("");
+
+  // Create a function for the button when clicked
+  function handleSelect(selectedButton) {
+    // SelectedButton = 'component', 'prop', 'JSX', 'State'
+    setSelectedValue(selectedButton);
+    // console.log(selectedValue);c
+  }
+  
+  // Using a variable for the dianamic display
+  let TabContent = <p>Please Click any button</p>;
+
+  if (selectedValue) {
+    TabContent = (
+      <div id="tab-content ">
+        <h3>{EXAMPLES[selectedValue].title}</h3>
+        <p>{EXAMPLES[selectedValue].description}</p>
+        <pre>
+          <code>{EXAMPLES[selectedValue].code}</code>
+        </pre>
+      </div>
+    );
+  }
   return (
     <div>
-      
       <Header />
       <main>
         {/* The ID for styling the concepts */}
@@ -39,21 +60,46 @@ function App() {
             <CoreConcept {...CORE_CONCEPTS[3]} />
 
              */}
-             {/* ----------------------------------------------------------------------------------------- */}
+            {/* ----------------------------------------------------------------------------------------- */}
           </ul>
         </section>
         <section id="examples">
           <h2>Example</h2>
           {/* The menu tag is used for creating a list of button */}
           <menu>
-            <TabButton onselect={()=> handleSelect('component')}>Component</TabButton>
+            <TabButton onselect={() => handleSelect("components")}>
+              Components
+            </TabButton>
             {/* "children " used here is a prop for the TabButton function */}
-            <TabButton onselect={()=> handleSelect('JSX')} >JSX</TabButton>
-            <TabButton onselect={()=> handleSelect('Props')} >Props</TabButton>
-            <TabButton onselect={()=> handleSelect('State')} >State</TabButton>
-          
+            <TabButton onselect={() => handleSelect("jsx")}>JSX</TabButton>
+            <TabButton onselect={() => handleSelect("props")}>Props</TabButton>
+            <TabButton onselect={() => handleSelect("state")}>State</TabButton>
           </menu>
-          Dynamic content
+
+          {/* -------------------------------------------------------------------------------------------- */}
+          {/* Using ternary can also work */}
+
+          {/*           {!selectedValue && <p>Please Select a Topic</p>} */}
+
+          {/* The selectedValue might be Component, JSX, Props or State
+                When one is selected, the code will look like:
+
+                EXAMPLE['Component'].title
+            */}
+
+          {/*           {selectedValue && (
+            <div id="tab-content ">
+              <h3>{EXAMPLES[selectedValue].title}</h3>
+              <p>{EXAMPLES[selectedValue].description}</p>
+              <pre>
+                <code>{EXAMPLES[selectedValue].code}</code>
+              </pre>
+            </div>
+          )} */}
+
+          {/* ----------------------------------------------------------------------------------------------------- */}
+
+          {TabContent}
         </section>
       </main>
     </div>
