@@ -19,7 +19,7 @@ function App() {
     setSelectedValue(selectedButton);
     // console.log(selectedValue);c
   }
-  
+
   // Using a variable for the dianamic display
   let TabContent = <p>Please Click any button</p>;
 
@@ -67,13 +67,13 @@ function App() {
           <h2>Example</h2>
           {/* The menu tag is used for creating a list of button */}
           <menu>
-            <TabButton onselect={() => handleSelect("components")}>
+            <TabButton isSelected={selectedValue ==='components'} onselect={() => handleSelect("components")}>
               Components
             </TabButton>
             {/* "children " used here is a prop for the TabButton function */}
-            <TabButton onselect={() => handleSelect("jsx")}>JSX</TabButton>
-            <TabButton onselect={() => handleSelect("props")}>Props</TabButton>
-            <TabButton onselect={() => handleSelect("state")}>State</TabButton>
+            <TabButton isSelected={selectedValue ==='jsx'} onselect={() => handleSelect("jsx")}>JSX</TabButton>
+            <TabButton isSelected={selectedValue ==='props'} onselect={() => handleSelect("props")}>Props</TabButton>
+            <TabButton isSelected={selectedValue ==='state'} onselect={() => handleSelect("state")}>State</TabButton>
           </menu>
 
           {/* -------------------------------------------------------------------------------------------- */}

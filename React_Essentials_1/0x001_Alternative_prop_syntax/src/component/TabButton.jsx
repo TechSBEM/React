@@ -1,8 +1,8 @@
-export default function TabButton({ onselect, children }) {
+export default function TabButton({ onselect, children, isSelected }) {
   return (
     <li>
       {/* Using "onSelect as a pointer for the click event in the App.jsx" */}
-      <button onClick={onselect}>{children}</button>
+      <button className={isSelected ? 'active': null} onClick={onselect}>{children}</button>
      
     </li>
   );
