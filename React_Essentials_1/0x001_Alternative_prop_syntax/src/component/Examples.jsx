@@ -32,33 +32,38 @@ export default function Examples() {
   return (
     <Section title="Examples" id="examples">
       {/* The menu tag is used for creating a list of button */}
-      <menu>
-        <TabButton
-          isSelected={selectedValue === "components"}
-          onClick={() => handleSelect("components")}
-        >
-          Components
-        </TabButton>
-        {/* "children " used here is a prop for the TabButton function */}
-        <TabButton
-          isSelected={selectedValue === "jsx"}
-          onClick={() => handleSelect("jsx")}
-        >
-          JSX
-        </TabButton>
-        <TabButton
-          isSelected={selectedValue === "props"}
-          onClick={() => handleSelect("props")}
-        >
-          Props
-        </TabButton>
-        <TabButton
-          isSelected={selectedValue === "state"}
-          onClick={() => handleSelect("state")}
-        >
-          State
-        </TabButton>
-      </menu>
+      <Tabs
+        buttons={
+          <>
+            <TabButton
+              isSelected={selectedValue === "components"}
+              onClick={() => handleSelect("components")}
+            >
+              Components
+            </TabButton>
+            {/* "children " used here is a prop for the TabButton function */}
+            <TabButton
+              isSelected={selectedValue === "jsx"}
+              onClick={() => handleSelect("jsx")}
+            >
+              JSX
+            </TabButton>
+            <TabButton
+              isSelected={selectedValue === "props"}
+              onClick={() => handleSelect("props")}
+            >
+              Props
+            </TabButton>
+            <TabButton
+              isSelected={selectedValue === "state"}
+              onClick={() => handleSelect("state")}
+            >
+              State
+            </TabButton>
+          </>
+        }
+      ></Tabs>
+
       {TabContent}
     </Section>
   );
