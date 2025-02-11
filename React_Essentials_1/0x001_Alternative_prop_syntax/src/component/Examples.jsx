@@ -3,6 +3,7 @@ import { EXAMPLES } from "../data.js";
 import { useState } from "react";
 import Section from "./Section.jsx";
 import Tabs from "./Tabs.jsx";
+import GameBoard from "./GameBoard.jsx";
 
 export default function Examples() {
   // --------------------------------------USESTATE------------------------------

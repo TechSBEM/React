@@ -1,9 +1,8 @@
-export default function Tabs({ children, buttons, ButtonsContainer }) {
-    // can use "buttonContainers" with a samll letter initiable
-    // when that is done, react will think of it a bbbbbbbbbbbbbbbbbb                                                                                                                                                                                                                   bbbb                                                                                                                                                                                                                                                                                                                                                       bbbbb
+export default function Tabs({ children, buttons, ButtonsContainer='menu' }) {
+    // Setting component type dynamically
   return (
     <>
-      <menu>{buttons}</menu>
+      <ButtonsContainer>{buttons}</ButtonsContainer>
       {children}
     </>
   );
