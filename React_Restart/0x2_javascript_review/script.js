@@ -163,3 +163,24 @@ console.log(title, author, pages, genres);
 const [primaryGenre, secondaryGenre] = genres;
 
 console.log(primaryGenre, secondaryGenre);
+
+// --------Rest Operator---
+// Must be the last element
+const [genre0, genre1, ...grenreAll] = genres;
+console.log(genre0, genre1, grenreAll);
+
+// -----------------Spread Operator------------
+// For Arrays: it groups all the elemnt in the array into one specific array
+const newGenreSet = ["Fantasy", ...genres];
+console.log(newGenreSet);
+
+// ---For Objects
+const updatedBook = {
+  ...book,
+  // Adding a new property to the object using destructuring
+  moviesPublicationDate: "2001-12-19",
+
+  // Overriding a new Property
+  pages: 1120,
+};
+updatedBook;
