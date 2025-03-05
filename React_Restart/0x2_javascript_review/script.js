@@ -147,7 +147,7 @@ function getBook(id) {
 // THe names should be the same us that in the object for destructuring
 // Object destrucuturing doesm't follow order
 
-const book = getBook(2);
+const book = getBook(3);
 
 // const title = book.title;
 // const author = book.author;
@@ -184,3 +184,67 @@ const updatedBook = {
   pages: 1120,
 };
 updatedBook;
+
+// Short Circuiting
+// && ----{And operator}
+console.log(true && "Some String");
+
+// Falsy values: 0, '', null, undefinded
+console.log("Emm" && "Car");
+console.log(0 && "car");
+
+// || ---{Or operator}
+console.log(true || "strings");
+console.log(false || "strings");
+
+//??  ---{Nullish operator}-- be false when the value is only 'null' or 'undefined'
+console.log(0 ?? "string");
+
+// Operational Chaining
+// Only read when the value which comes before it exist
+function getTotalReviewCount(book) {
+  const goodreads = book.reviews?.goodreads?.reviewsCount;
+  const librarything = book.reviews?.librarything?.reviewsCount ?? 0;
+
+  return goodreads + librarything;
+}
+
+console.log(getTotalReviewCount(book));
+
+// -----------------------------Map Array Method----
+const x = [1, 2, 3, 4, 5].map((num) => num * 2);
+console.log(x);
+
+books = [...data];
+
+// ----------------Filter Method---------------
+// Since filter returns an array, it can be chained
+const longBooks = books
+  .filter((book) => book.pages > 500)
+  .filter((book) => book.hasMovieAdaptation);
+longBooks;
+
+// ---------------REDUCE METHOD----
+// Most powerful of all the methods
+const pagesAllBoojs = books.reduce((acc, book) => acc + book.pages, 0);
+pagesAllBoojs;
+
+// --------------------Sort Method------
+// It is a method that mutates the original array
+const sorting = [2, 344, 5, 2, 5, 1, 4, 7, 3];
+// Sorting in the ascending was.
+const sorted = sorting.slice().sort((a, b) => a - b);
+sorting;
+sorted;
+
+const sortedByPages = books.slice().sort((a, b) => a.pages - b.pages);
+sortedByPages;
+
+// Delete book obrject from array---use Filter
+const booksAfterUpdate = books.filter((book) => book.id !== 3);
+booksAfterUpdate;
+
+// Update with map because it retains the number of arrays always
+const updatingArray = books.map((book) =>
+  book.id === 1 ? { ...book, pages: 1210 } : book
+);
