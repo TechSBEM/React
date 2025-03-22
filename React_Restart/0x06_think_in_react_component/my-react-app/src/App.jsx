@@ -50,6 +50,12 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+// There are 3 types of components:
+// **1...Stateless/ presentational components
+// **2...Stateful Componet
+// **3...Structural Components: For layout
+
+// Structural Components
 export default function App() {
   return (
     <>
@@ -59,16 +65,19 @@ export default function App() {
   );
 }
 
+// Structural Components
 function NavBar() {
   // It not nice to have custom component togeter with that of in-built ones
   return (
     <nav className="nav-bar">
       <Logo />
       <Search />
+      <NumResults />
     </nav>
   );
 }
 
+// Presentational Component: Just present an image
 function Logo() {
   return (
     <div className="logo">
@@ -79,6 +88,8 @@ function Logo() {
 }
 
 // The search bar has it own component because it will be used accross the entire app
+
+//Stateful component
 function Search() {
   const [query, setQuery] = useState("");
 
@@ -93,6 +104,7 @@ function Search() {
   );
 }
 
+// Presentational componet
 function NumResults() {
   return (
     <p className="num-results">
@@ -112,6 +124,7 @@ function Main() {
   );
 }
 
+// Stateful Component
 function ListBox() {
   const [isOpen1, setIsOpen1] = useState(true);
   return (
@@ -127,6 +140,7 @@ function ListBox() {
   );
 }
 
+// Stateful Component
 function MovieList() {
   const [movies, setMovies] = useState(tempMovieData);
 
@@ -140,6 +154,7 @@ function MovieList() {
   );
 }
 
+// Presentational Component
 function Movie({ movie }) {
   return (
     <li>
@@ -155,6 +170,7 @@ function Movie({ movie }) {
   );
 }
 
+// Stateful component
 function WatchedBox() {
   const [watched, setWatched] = useState(tempWatchedData);
   const [isOpen2, setIsOpen2] = useState(true);
@@ -172,7 +188,7 @@ function WatchedBox() {
     </div>
   );
 }
-
+// Stateless component
 function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
@@ -202,6 +218,7 @@ function WatchedSummary({ watched }) {
   );
 }
 
+// Stateless
 function WatchedMoviesList({ watched }) {
   return (
     <ul className="list">
@@ -212,6 +229,7 @@ function WatchedMoviesList({ watched }) {
   );
 }
 
+// Stateless component
 function WatchedMovie({ movie }) {
   return (
     <li>
