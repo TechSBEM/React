@@ -61,20 +61,29 @@ export default function App() {
 
   return (
     <>
-      <NavBar movies={movies} />
-      <Main movies={movies} />
+      <NavBar>
+        <Search />
+        <NumResults movies={movies} />
+      </NavBar>
+      {/* Using composistion to fixe prop drilling
+        Who need the prop
+      */}
+      <Main>
+        <ListBox>
+          <MovieList movies={movies} />
+        </ListBox>
+      </Main>
     </>
   );
 }
 
 // Structural Components
-function NavBar({ movies }) {
+function NavBar({ children }) {
   // It not nice to have custom component togeter with that of in-built ones
   return (
     <nav className="nav-bar">
       <Logo />
-      <Search />
-      <NumResults movies={movies} />
+      {children}
     </nav>
   );
 }
@@ -115,19 +124,19 @@ function NumResults({ movies }) {
   );
 }
 
-function Main({ movies }) {
+function Main({ children }) {
   return (
     // Spliting components into 2 based on the watched and list on the UI
 
     <main className="main">
-      <ListBox movies={movies} />
+      {children}
       <WatchedBox />
     </main>
   );
 }
 
 // Stateful Component
-function ListBox({ movies }) {
+function ListBox({ children }) {
   const [isOpen1, setIsOpen1] = useState(true);
   return (
     <div className="box">
@@ -137,7 +146,7 @@ function ListBox({ movies }) {
       >
         {isOpen1 ? "–" : "+"}
       </button>
-      {isOpen1 && <MovieList movies={movies} />}
+      {isOpen1 && children}
     </div>
   );
 }
