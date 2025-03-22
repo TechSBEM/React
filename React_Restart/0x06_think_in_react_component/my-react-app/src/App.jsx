@@ -60,13 +60,14 @@ export default function App() {
 }
 
 function NavBar() {
-  const [query, setQuery] = useState("");
+  // It not nice to have custom component togeter with that of in-built ones
   return (
     <nav className="nav-bar">
       <div className="logo">
         <span role="img">🍿</span>
         <h1>usePopcorn</h1>
       </div>
+      <Search />
 
       <p className="num-results">
         Found <strong>X</strong> results
@@ -75,7 +76,10 @@ function NavBar() {
   );
 }
 
+// The search bar has it own component because it will be used accross the entire app
 function Search() {
+  const [query, setQuery] = useState("");
+
   return (
     <input
       className="search"
