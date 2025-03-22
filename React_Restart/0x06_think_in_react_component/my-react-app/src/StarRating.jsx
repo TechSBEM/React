@@ -15,8 +15,16 @@ const textStyle = {
   lineHeight: "3",
   margin: "0",
 };
+/* Creating a hover effect
+1. We need a state to save the hovering
+2. Render condition for the hover and the currernt
+3.Check the same condition for rating
+*/
+
 export default function StarRating({ maxRating = 5 }) {
   const [rating, setRating] = useState(0);
+  // State for the temporaly rating which is set to 0 once the mouse move one
+  const [tempRating, setTempRating] = useState(0);
   function handleRating(rating) {
     setRating(rating);
   }
@@ -27,12 +35,15 @@ export default function StarRating({ maxRating = 5 }) {
           <Star
             key={i}
             onRate={() => handleRating(i + 1)}
-            isFull={rating >= i + 1}
+            onHoverIn={() => setTempRating(i + 1)}
+            onHoverOut={() => setTempRating(0)}
+            //Set to True only if the current index in less or equal to the total rating
+            isFull={tempRating ? tempRating >= i + 1 : rating >= i + 1}
           />
         ))}
       </div>
       {/* Rendering conditionally if rating is '0' or falsy value */}
-      <p style={textStyle}>{rating || ""}</p>
+      <p style={textStyle}>{tempRating || rating || ""}</p>
     </div>
   );
 }
@@ -44,9 +55,15 @@ const StarStyle = {
   cursor: "pointer",
 };
 
-function Star({ onRate, isFull }) {
+function Star({ onRate, isFull, onHoverIn, onHoverOut }) {
   return (
-    <span role="button" style={StarStyle} onClick={onRate}>
+    <span
+      role="button"
+      style={StarStyle}
+      onClick={onRate}
+      onMouseEnter={onHoverIn}
+      onMouseLeave={onHoverOut}
+    >
       {/* Rendering the empty stars conditioniallu with a boolean */}
       {isFull ? (
         <svg
