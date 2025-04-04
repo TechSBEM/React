@@ -93,6 +93,15 @@ export default function App() {
           setIsLoading(false);
         }
       }
+      // Making should the error displays only when the movies length is more than 3 characters and not found
+      if (query.length < 3) {
+        // Setting movies state to empty array
+        setMovies([]);
+        // Setting Error to empty string
+        setError("");
+        return;
+      }
+
       // Calling the fetcMovies function
       fetchMovies();
       // To make a state renders in an effect, it should be in the dependency array
