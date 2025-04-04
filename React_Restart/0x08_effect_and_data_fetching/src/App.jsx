@@ -61,43 +61,49 @@ const KEY = "f84fc31d";
 // Structural Components
 export default function App() {
   const [movies, setMovies] = useState([]);
+  const [query, setQuery] = useState("");
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const query = "interstellar";
-  // const query = "Nana Yaw";
+  const temquery = "interstellar";
 
-  useEffect(function () {
-    async function fetchMovies() {
-      // Throwing an error when the internet connection goes wrong
-      try {
-        setIsLoading(true);
-        const res = await fetch(
-          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-        );
-        if (!res.ok)
-          throw new Error("Somethinh went wrong with fetching movies");
+  useEffect(
+    function () {
+      async function fetchMovies() {
+        // Throwing an error when the internet connection goes wrong
+        try {
+          setIsLoading(true);
+          // Alls reseting the error messagw with new loading
+          setError("");
+          const res = await fetch(
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+          );
+          if (!res.ok)
+            throw new Error("Somethinh went wrong with fetching movies");
 
-        const data = await res.json();
-        // Throwing error for movies not found
-        if (data.Response === "False") throw new Error("Movies Not found");
-        setMovies(data.Search);
-        console.log(data);
-      } catch (err) {
-        console.log(err.message);
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
+          const data = await res.json();
+          // Throwing error for movies not found
+          if (data.Response === "False") throw new Error("Movies Not found");
+          setMovies(data.Search);
+          console.log(data);
+        } catch (err) {
+          console.log(err.message);
+          setError(err.message);
+        } finally {
+          setIsLoading(false);
+        }
       }
-    }
-    // Calling the fetcMovies function
-    fetchMovies();
-  }, []);
+      // Calling the fetcMovies function
+      fetchMovies();
+      // To make a state renders in an effect, it should be in the dependency array
+    },
+    [query]
+  );
 
   return (
     <>
       <NavBar>
-        <Search />
+        <Search query={query} setQuery={setQuery} />
         <NumResults movies={movies} />
       </NavBar>
       {/* Using composistion to fixe prop drilling
@@ -143,9 +149,7 @@ function Logo() {
 // The search bar has it own component because it will be used accross the entire app
 
 //Stateful component
-function Search() {
-  const [query, setQuery] = useState("");
-
+function Search({ query, setQuery }) {
   return (
     <input
       className="search"
