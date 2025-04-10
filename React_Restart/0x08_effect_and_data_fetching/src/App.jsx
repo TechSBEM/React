@@ -354,6 +354,18 @@ function MovieDetails({
     // Will be re-render or mounted when the selectedID changes
     [selectedID]
   );
+
+  // Use , useEffect for a single event not multiple
+  useEffect(
+    function () {
+      // Rendering nothing with no title
+      if (!title) return;
+
+      // Chechng the document title with the movie selected
+      document.title = `Movie | ${title}`;
+    },
+    [title]
+  );
   return (
     <div className="details">
       {/* Cheching whether the API is done loading */}
