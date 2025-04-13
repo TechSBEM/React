@@ -87,6 +87,9 @@ export default function App() {
   }
   useEffect(
     function () {
+      // Using the "Abort API" to control fetching compitition among data
+      const controller = new AbortController(); //This is a broswer api not react
+
       async function fetchMovies() {
         // Throwing an error when the internet connection goes wrong
         try {
@@ -94,7 +97,8 @@ export default function App() {
           // Alls reseting the error messagw with new loading
           setError("");
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+            { signal: controller.signal } //Adding the abort to it
           );
           if (!res.ok)
             throw new Error("Somethinh went wrong with fetching movies");
@@ -104,9 +108,12 @@ export default function App() {
           if (data.Response === "False") throw new Error("Movies Not found");
           setMovies(data.Search);
           console.log(data.Search);
+          setError("");
         } catch (err) {
           console.log(err.message);
-          setError(err.message);
+          if (err.name !== "AbortError") {
+            setError(err.message);
+          }
         } finally {
           setIsLoading(false);
         }
@@ -122,8 +129,12 @@ export default function App() {
 
       // Calling the fetcMovies function
       fetchMovies();
-      // To make a state renders in an effect, it should be in the dependency array
+      // The current request is cancelled when a new keystroke comes in
+      return function () {
+        controller.abort();
+      };
     },
+    // To make a state renders in an effect, it should be in the dependency array
     [query]
   );
 
