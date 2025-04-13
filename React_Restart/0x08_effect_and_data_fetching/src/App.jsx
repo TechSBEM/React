@@ -363,6 +363,11 @@ function MovieDetails({
 
       // Chechng the document title with the movie selected
       document.title = `Movie | ${title}`;
+
+      return function () {
+        document.title = "usePopcorn";
+        console.log(`Clean up effect for movie ${title}`);
+      };
     },
     [title]
   );
