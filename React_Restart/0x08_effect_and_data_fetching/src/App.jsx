@@ -62,7 +62,7 @@ const KEY = "f84fc31d";
 // Structural Components
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState("kids");
+  const [query, setQuery] = useState("");
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -111,6 +111,8 @@ export default function App() {
           setError("");
         } catch (err) {
           console.log(err.message);
+
+          // Cheching the error that will occur
           if (err.name !== "AbortError") {
             setError(err.message);
           }
@@ -126,6 +128,9 @@ export default function App() {
         setError("");
         return;
       }
+
+      // Closing the movies list tab when ever a new search is done
+      handleCloseMovie();
 
       // Calling the fetcMovies function
       fetchMovies();
@@ -343,6 +348,23 @@ function MovieDetails({
     // Closing the movies details and getting back to the movies watched
     onhandleCloseMovies();
   }
+
+  // Listening to keypress
+  // We use the useeffect to  do so since wwe will be needing the DOM
+  useEffect(function () {
+    function callback(e) {
+      if (e.code === "Escape") {
+        onhandleCloseMovies();
+        console.log("Closing");
+      }
+    }
+    document.addEventListener("keydown", callback);
+
+    //Each time the app re-renders, it got to remove the event listener so it doesn't accumulate
+    return function () {
+      document.removeEventListener("keydown", callback);
+    };
+  });
 
   // Rending the movies from an API
   useEffect(
